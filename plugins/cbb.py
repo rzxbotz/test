@@ -62,7 +62,7 @@ async def cb_handler(client: Bot, query: CallbackQuery):
 
     elif data == "studynotes2019":  # Fixed case issue
         await query.message.edit_text(
-            text=script.BCM2019SEMESTERS.format(query.from_user.mention),
+            text=script.BCM2019SNSEMESTERS.format(query.from_user.mention),
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
                 [
@@ -165,7 +165,7 @@ async def cb_handler(client: Bot, query: CallbackQuery):
 
     elif data == "pyq2019":  # Fixed case issue
         await query.message.edit_text(
-            text=script.SEMESTERS.format(query.from_user.mention),
+            text=script.BCM2019PYQSEMESTERS.format(query.from_user.mention),
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
                 [
