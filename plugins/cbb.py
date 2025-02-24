@@ -18,15 +18,14 @@ async def cb_handler(client: Bot, query: CallbackQuery):
                 [
                     [
                         InlineKeyboardButton("BCOM", callback_data="bcom"),
-                        InlineKeyboardButton("BCOM", callback_data="soon")
-                    ],[
-                        InlineKeyboardButton("Back", callback_data="start")
-                    ]
+                        InlineKeyboardButton("BBA", callback_data="soon")  # Fixed duplicate "BCOM"
+                    ],
+                    [InlineKeyboardButton("Back", callback_data="start")]
                 ]
             )
         )
 
-    elif data == "bcom":  # Fixed case issue
+    elif data == "bcom":
         await query.message.edit_text(
             text=script.BCOM.format(query.from_user.mention),
             disable_web_page_preview=True,
@@ -35,32 +34,26 @@ async def cb_handler(client: Bot, query: CallbackQuery):
                     [
                         InlineKeyboardButton("Admission Onwards 2019", callback_data="bcm2019"),
                         InlineKeyboardButton("Admission Onwards 2024", callback_data="soon")
-                    ],[
-                        InlineKeyboardButton("Back", callback_data="course")
-                    ]
+                    ],
+                    [InlineKeyboardButton("Back", callback_data="course")]
                 ]
             )
         )
 
-    elif data == "bcm2019":  # Fixed case issue
+    elif data == "bcm2019":
         await query.message.edit_text(
             text=script.MATERIALS2019.format(query.from_user.mention),
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
                 [
-                    [
-                        InlineKeyboardButton("Study Notes", callback_data="studynotes2019"),
-                    ],[
-                        InlineKeyboardButton("Question Papers", callback_data="pyq2019")
-                    ],
-                    [
-                        InlineKeyboardButton("Back", callback_data="bcom")
-                    ]
+                    [InlineKeyboardButton("Study Notes", callback_data="studynotes2019")],
+                    [InlineKeyboardButton("Question Papers", callback_data="pyq2019")],
+                    [InlineKeyboardButton("Back", callback_data="bcom")]
                 ]
             )
         )
 
-    elif data == "studynotes2019":  # Fixed case issue
+    elif data == "studynotes2019":
         await query.message.edit_text(
             text=script.BCM2019SNSEMESTERS.format(query.from_user.mention),
             disable_web_page_preview=True,
@@ -78,92 +71,22 @@ async def cb_handler(client: Bot, query: CallbackQuery):
                         InlineKeyboardButton("5️⃣ SEMESTER", callback_data="bcmsnsem5"),
                         InlineKeyboardButton("6️⃣ SEMESTER", callback_data="bcmsnsem6")
                     ],
-                    [
-                        InlineKeyboardButton("Back", callback_data="bcm2019")
-                    ]
+                    [InlineKeyboardButton("Back", callback_data="bcm2019")]
                 ]
             )
         )
 
-    elif data == "bcmsnsem1":  
+    elif data.startswith("bcmsnsem"):
+        semester = data[-1]  # Extract semester number
         await query.message.edit_text(
-            text=script.BCMSNSEM1.format(query.from_user.mention),
+            text=getattr(script, f"BCMSNSEM{semester}").format(query.from_user.mention),
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
-                [
-                    [
-                        InlineKeyboardButton("Back", callback_data="studynotes2019")
-                    ]
-                ]
+                [[InlineKeyboardButton("Back", callback_data="studynotes2019")]]
             )
         )
 
-    elif data == "bcmsnsem2":  
-        await query.message.edit_text(
-            text=script.BCMSNSEM2.format(query.from_user.mention),
-            disable_web_page_preview=True,
-            reply_markup=InlineKeyboardMarkup(
-                [
-                    [
-                        InlineKeyboardButton("Back", callback_data="studynotes2019")
-                    ]
-                ]
-            )
-        )
-
-    elif data == "bcmsnsem3":  
-        await query.message.edit_text(
-            text=script.BCMSNSEM3.format(query.from_user.mention),
-            disable_web_page_preview=True,
-            reply_markup=InlineKeyboardMarkup(
-                [
-                    [
-                        InlineKeyboardButton("Back", callback_data="studynotes2019")
-                    ]
-                ]
-            )
-        )
-
-    elif data == "bcmsnsem4": 
-        await query.message.edit_text(
-            text=script.BCMSNSEM4.format(query.from_user.mention),
-            disable_web_page_preview=True,
-            reply_markup=InlineKeyboardMarkup(
-                [
-                    [
-                        InlineKeyboardButton("Back", callback_data="studynotes2019")
-                    ]
-                ]
-            )
-        )
-
-    elif data == "bcmsnsem5":  
-        await query.message.edit_text(
-            text=script.BCMSNSEM5.format(query.from_user.mention),
-            disable_web_page_preview=True,
-            reply_markup=InlineKeyboardMarkup(
-                [
-                    [
-                        InlineKeyboardButton("Back", callback_data="studynotes2019")
-                    ]
-                ]
-            )
-        )
-
-    elif data == "bcmsnsem6":
-        await query.message.edit_text(
-            text=script.BCMSNSEM6.format(query.from_user.mention),
-            disable_web_page_preview=True,
-            reply_markup=InlineKeyboardMarkup(
-                [
-                    [
-                        InlineKeyboardButton("Back", callback_data="studynotes2019")
-                    ]
-                ]
-            )
-        )
-
-    elif data == "pyq2019":  # Fixed case issue
+    elif data == "pyq2019":
         await query.message.edit_text(
             text=script.BCM2019PYQSEMESTERS.format(query.from_user.mention),
             disable_web_page_preview=True,
@@ -181,100 +104,31 @@ async def cb_handler(client: Bot, query: CallbackQuery):
                         InlineKeyboardButton("5️⃣ SEMESTER", callback_data="bcmpyqsem5"),
                         InlineKeyboardButton("6️⃣ SEMESTER", callback_data="bcmpyqsem6")
                     ],
-                    [
-                        InlineKeyboardButton("Back", callback_data="bcm2019")
-                    ]
+                    [InlineKeyboardButton("Back", callback_data="bcm2019")]
                 ]
             )
         )
 
-    elif data == "bcmpyqsem1":  
+    elif data.startswith("bcmpyqsem"):
+        semester = data[-1]  # Extract semester number
         await query.message.edit_text(
-            text=script.BCMPYQSEM1.format(query.from_user.mention),
+            text=getattr(script, f"BCMPYQSEM{semester}").format(query.from_user.mention),
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
-                [
-                    [
-                        InlineKeyboardButton("Back", callback_data="pyq2019")
-                    ]
-                ]
-            )
-        )
-
-    elif data == "bcmpyqsem2":  
-        await query.message.edit_text(
-            text=script.BCMPYQSEM2.format(query.from_user.mention),
-            disable_web_page_preview=True,
-            reply_markup=InlineKeyboardMarkup(
-                [
-                    [
-                        InlineKeyboardButton("Back", callback_data="pyq2019")
-                    ]
-                ]
-            )
-        )
-
-    elif data == "bcmpyqsem3":  
-        await query.message.edit_text(
-            text=script.BCMPYQSEM3.format(query.from_user.mention),
-            disable_web_page_preview=True,
-            reply_markup=InlineKeyboardMarkup(
-                [
-                    [
-                        InlineKeyboardButton("Back", callback_data="pyq2019")
-                    ]
-                ]
-            )
-        )
-
-    elif data == "bcmpyqsem4": 
-        await query.message.edit_text(
-            text=script.BCMPYQSEM4.format(query.from_user.mention),
-            disable_web_page_preview=True,
-            reply_markup=InlineKeyboardMarkup(
-                [
-                    [
-                        InlineKeyboardButton("Back", callback_data="pyq2019")
-                    ]
-                ]
-            )
-        )
-
-    elif data == "bcmpyqsem5":  
-        await query.message.edit_text(
-            text=script.BCMPYQSEM5.format(query.from_user.mention),
-            disable_web_page_preview=True,
-            reply_markup=InlineKeyboardMarkup(
-                [
-                    [
-                        InlineKeyboardButton("Back", callback_data="pyq2019")
-                    ]
-                ]
-            )
-        )
-
-    elif data == "bcmpyqsem6":
-        await query.message.edit_text(
-            text=script.BCMPYQSEM6.format(query.from_user.mention),
-            disable_web_page_preview=True,
-            reply_markup=InlineKeyboardMarkup(
-                [
-                    [
-                        InlineKeyboardButton("Back", callback_data="pyq2019")
-                    ]
-                ]
+                [[InlineKeyboardButton("Back", callback_data="pyq2019")]]
             )
         )
 
     elif data == "soon":
-    await query.answer(
-        text="This feature will be available soon!",  # Alert message text
-        show_alert=True  # Setting this to True shows a pop-up alert
-    )
-    
+        await query.answer(
+            text="This feature will be available soon!",  # Alert message text
+            show_alert=True  # Setting this to True shows a pop-up alert
+        )
+
     elif data == "close":
         await query.message.delete()
         try:
             await query.message.reply_to_message.delete()
         except:
             pass
+                        
