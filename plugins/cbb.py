@@ -8,14 +8,39 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQ
 @Bot.on_callback_query()
 async def cb_handler(client: Bot, query: CallbackQuery):
     data = query.data
-    if data == "about":
+    if data == "course":
         await query.message.edit_text(
-            text = f"<b>○ Creator : <a href='tg://user?id={OWNER_ID}'>This Person</a>\n○ Language : <code>Python3</code>\n○ Library : <a href='https://docs.pyrogram.org/'>Pyrogram asyncio {__version__}</a>\n○ Source Code : <a href='https://github.com/CodeXBotz/File-Sharing-Bot'>Click here</a>\n○ Channel : @CodeXBotz\n○ Support Group : @CodeXBotzSupport</b>",
+            text=script.COURSE.format(query.from_user.mention),
             disable_web_page_preview = True,
             reply_markup = InlineKeyboardMarkup(
                 [
                     [
-                        InlineKeyboardButton("🔒 Close", callback_data = "close")
+                        InlineKeyboardButton("BCOM", callback_data = "bcom"),
+                        InlineKeyboardButton("BBA", callback_data = "bba")
+                    ],[
+                        InlineKeyboardButton("Back", callback_data = "start")
+                    ]
+                ]
+            )
+        )
+
+    if data == "BCOM":
+        await query.message.edit_text(
+            text=script.SEMESTER.format(query.from_user.mention),
+            disable_web_page_preview = True,
+            reply_markup = InlineKeyboardMarkup(
+                [
+                    [
+                        InlineKeyboardButton("1️⃣ SEMESTER", callback_data = "sem1"),
+                        InlineKeyboardButton("2️⃣ SEMESTER", callback_data = "sem2")
+                    ],[
+                        InlineKeyboardButton("3️⃣ SEMESTER", callback_data = "sem3"),
+                        InlineKeyboardButton("4️⃣ SEMESTER", callback_data = "sem4")
+                    ],[
+                        InlineKeyboardButton("5️⃣ SEMESTER", callback_data = "sem5"),
+                        InlineKeyboardButton("6️⃣ SEMESTER", callback_data = "sem6")
+                    ],[
+                        InlineKeyboardButton("Back", callback_data = "course")
                     ]
                 ]
             )
