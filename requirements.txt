@@ -1,5 +1,5 @@
 # --- For-Bot-Working --------- #
-pyrogram
+git+https://github.com/KurimuzonAkuma/pyrogram.git@v2.1.34#egg=pyrogram
 TgCrypto
 pyromod==1.5
 python-dotenv
