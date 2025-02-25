@@ -47,7 +47,8 @@ async def cb_handler(client: Bot, query: CallbackQuery):
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
-                        InlineKeyboardButton("Admission Onwards 2019", callback_data="bcm2019"),
+                        InlineKeyboardButton("Admission Onwards 2019", callback_data="bcm2019")
+                    ],[
                         InlineKeyboardButton("Admission Onwards 2024", callback_data="soon")
                     ],
                     [InlineKeyboardButton("Back", callback_data="course")]
