@@ -89,7 +89,7 @@ Study materials will be <b>added soon.</b>
 
 <b>Semester:</b> Sixth  
 
-Study materials will be <b>added soon.</b>  
+<b>[AUDITING AND CORPORATE GOVERNANCE](https://t.me/ExamWalletBot?start=Z2V0LTI3MzYxMTk0MDQ4NjA2Ni0yNzk2MjUzODk3Mjc1MTg)</b>  
 
 <i>Click on the subject name to view available resources.</i>
 
@@ -157,7 +157,7 @@ Previous year question papers will be <b>added soon.</b>
 
 <b>Semester:</b> Sixth  
 
-Previous year question papers will be <b>added soon.</b>  
+<b>[AUDITING AND CORPORATE GOVERNANCE](https://t.me/ExamWalletBot?start=Z2V0LTI4MDYyNzYzMTI2Nzc2MC0yODQ2MzY1OTc0Mjg3Mjg)</b>  
 
 <i>Click on the subject name to view available papers.</i>
 
