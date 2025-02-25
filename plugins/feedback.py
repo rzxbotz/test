@@ -4,8 +4,8 @@ from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 # Admin Channel ID where feedback is sent
 ADMIN_CHANNEL_ID = -1001906863982  # Replace with your actual channel ID
 
-# Dictionary to store user feedback message mapping
-feedback_users = {}
+# Dictionary to store user feedback before confirmation
+pending_feedback = {}
 
 @Client.on_message(filters.private & filters.command("feedback"))
 async def ask_feedback(client, message):
@@ -14,14 +14,15 @@ async def ask_feedback(client, message):
     user_message = message.text.split(" ", 1)
 
     if len(user_message) < 2:
-        await message.reply_text("Example: `/feedback This bot is amazing!`")
+        await message.reply_text("❌ Please provide feedback. Example: `/feedback This bot is amazing!`")
         return
 
     feedback_text = user_message[1]
+    pending_feedback[user_id] = feedback_text  # Store feedback temporarily
 
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("✅ Submit Feedback", callback_data=f"submit_feedback|{user_id}")],
-        [InlineKeyboardButton("❌ Cancel", callback_data="cancel_feedback")]
+        [InlineKeyboardButton("❌ Cancel", callback_data=f"cancel_feedback|{user_id}")]
     ])
 
     await message.reply_text(
@@ -33,12 +34,11 @@ async def ask_feedback(client, message):
 async def submit_feedback(client, query):
     """ Handles feedback submission after user confirmation """
     user_id = int(query.data.split("|")[1])
-    message = query.message
 
-    if message.reply_to_message:
-        feedback_text = message.reply_to_message.text
-    else:
-        await query.answer("❌ Error: No feedback found.")
+    # Retrieve stored feedback
+    feedback_text = pending_feedback.get(user_id)
+    if not feedback_text:
+        await query.answer("❌ No feedback found.")
         return
 
     user = await client.get_users(user_id)
@@ -49,13 +49,19 @@ async def submit_feedback(client, query):
         f"📩 **New Feedback Received**\n\n👤 **User:** [{user_name}](tg://user?id={user_id})\n🆔 **User ID:** `{user_id}`\n\n💬 **Message:**\n{feedback_text}\n\n🔹 *Reply to this message to respond anonymously.*"
     )
 
-    feedback_users[sent_feedback.message_id] = user_id
+    # Remove stored feedback after submission
+    pending_feedback.pop(user_id, None)
 
     await query.message.edit_text("✅ Your feedback has been submitted successfully! Thank you.")
 
-@Client.on_callback_query(filters.regex(r"cancel_feedback"))
+@Client.on_callback_query(filters.regex(r"cancel_feedback\|(\d+)"))
 async def cancel_feedback(client, query):
     """ Handles feedback cancellation """
+    user_id = int(query.data.split("|")[1])
+
+    # Remove stored feedback if canceled
+    pending_feedback.pop(user_id, None)
+
     await query.message.edit_text("❌ Feedback submission canceled.")
 
 @Client.on_message(filters.channel & filters.reply)
@@ -63,10 +69,17 @@ async def reply_to_feedback(client, message: Message):
     """ Admin replies are sent anonymously via the bot """
     replied_message = message.reply_to_message
 
-    if not replied_message or replied_message.message_id not in feedback_users:
-        return  # Ignore if it's not a reply to a feedback message
+    if not replied_message:
+        return  # Ignore if not a reply to a feedback message
 
-    user_id = feedback_users[replied_message.message_id]
+    # Extract User ID from the feedback message
+    for line in replied_message.text.split("\n"):
+        if line.startswith("🆔 **User ID:**"):
+            user_id = int(line.split("`")[1])
+            break
+    else:
+        return  # Ignore if no user ID is found
+
     admin_reply = message.text
 
     try:
@@ -78,4 +91,4 @@ async def reply_to_feedback(client, message: Message):
     except Exception as e:
         await message.reply_text("❌ Failed to send reply. The user may have blocked the bot.")
         print(f"Error sending reply: {e}")
-  
+        
