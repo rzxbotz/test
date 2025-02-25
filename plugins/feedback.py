@@ -27,7 +27,7 @@ async def submit_feedback(client, message: Message):
         # Send feedback to the admin channel
         await client.send_message(
             ADMIN_CHANNEL_ID,
-            f"📩 **New Feedback Received**\n\n👤 **User:** [{user_name}](tg://user?id={user_id})\n🆔 **User ID:** `{user_id}`\n\n💬 **Message:**\n{feedback_text}\n\n🔹 *Reply to this message to respond anonymously.*"
+            f"<b>📩 New Feedback Received \n\n💬 Message:\n{feedback_text}\n\n👤 User: {mention}\n🆔 User ID: `{user_id}`</b>"
         )
 
         await message.reply_text("✅ Your feedback has been submitted successfully! Thank you.")
@@ -60,7 +60,7 @@ async def reply_to_feedback(client, message: Message):
         try:
             await client.send_message(
                 user_id,
-                f"📩 **Admin Reply:**\n\n{admin_reply}\n\n🔹 *This is an automated response.*"
+                f"</blockquote>You : {feedback_text}</blockquote>\n\n<b>Reply from admin : {admin_reply}</b>"
             )
             await message.reply_text("✅ Reply sent anonymously to the user.")
         except Exception as e:
