@@ -9,7 +9,7 @@ SEND_WARNING = True  # Set to True if you want to warn users before deletion
 async def delete_forwarded(client, message):
     try:
         user_id = message.chat.id
-        message_id = message.message_id
+        message_id = message.id  # FIXED: Correct attribute name
 
         if SEND_WARNING:
             warning_msg = await message.reply_text(
@@ -27,4 +27,4 @@ async def delete_forwarded(client, message):
 
     except Exception as e:
         print(f"Error deleting message: {e}")
-      
+        
