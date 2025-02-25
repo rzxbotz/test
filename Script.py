@@ -1,5 +1,5 @@
 class script(object):
-    START_MSG = """<b>Here You Can Find MG University's Study Notes & Previous Year Question Papers Easily.
+    START_MSG = """<b>Here You Can Find Calicut University's Study Notes & Previous Year Question Papers Easily.
     
 Select Your Course Using The Button Given Below:</b>"""
 
@@ -10,6 +10,7 @@ Select Your Course Using The Button Given Below:</b>"""
     MATERIALS2019 = """<i>○ Selected Course: <b>B.COM</b>
     
 ○ Here, You can Access Study Notes & Previous Year Question Papers!  
+
 Click the Button Below to Continue:</i>"""
 
     BCM2019SNSEMESTERS = """<i>○ Selected Course: B.COM
