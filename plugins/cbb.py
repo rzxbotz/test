@@ -51,6 +51,43 @@ async def cb_handler(client: Bot, query: CallbackQuery):
             )
         )
 
+    elif data == "about":
+        await safe_edit_media(
+            script.ABOUT_TXT.format(query.from_user.mention),
+            InlineKeyboardMarkup(
+                [
+                    [
+                        InlineKeyboardButton("Learn More About Us!", callback_data="abouts")
+                    ],[
+                        InlineKeyboardButton("Credit", callback_data="credit")
+                    ],
+                    [InlineKeyboardButton("Close", callback_data="close_data")]
+                ]
+            )
+        )
+
+    elif data == "abouts":
+        await safe_edit_media(
+            script.ABOUT.format(query.from_user.mention),
+            InlineKeyboardMarkup(
+                [
+                    [
+                        InlineKeyboardButton("Back", callback_data="about")]
+                ]
+            )
+        )
+
+    elif data == "credit":
+        await safe_edit_media(
+            script.CREDIT.format(query.from_user.mention),
+            InlineKeyboardMarkup(
+                [
+                    [
+                        InlineKeyboardButton("Back", callback_data="about")]
+                ]
+            )
+        )
+
     elif data == "bcom":
         await safe_edit_media(
             script.BCOM.format(query.from_user.mention),
