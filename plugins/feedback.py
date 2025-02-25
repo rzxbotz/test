@@ -54,20 +54,29 @@ async def reply_to_feedback(client: Client, message: Message):
     try:
         replied_message = message.reply_to_message
 
-        if not replied_message:
+        if not replied_message or not replied_message.text:
             return
 
-        # Extract User ID from the feedback message
+        # Initialize variables
         user_id = None
         feedback_text = None
 
-        for line in replied_message.text.split("\n"):
+        lines = replied_message.text.split("\n")
+
+        # Extract User ID and Feedback Message
+        for i, line in enumerate(lines):
             if "User ID:" in line:
-                user_id = int(line.split("<code>")[1].split("</code>")[0])
+                try:
+                    user_id = int(line.split("<code>")[1].split("</code>")[0])
+                except (IndexError, ValueError):
+                    logger.error("Failed to extract User ID from feedback message.")
+                    await message.reply_text("Error: Could not extract User ID.")
+                    return
             elif "Message:" in line:
-                feedback_text = replied_message.text.split("Message:")[1].strip()
+                feedback_text = "\n".join(lines[i+1:]).strip()
 
         if not user_id:
+            await message.reply_text("Error: Could not extract User ID.")
             return
 
         admin_reply = message.text
@@ -75,7 +84,7 @@ async def reply_to_feedback(client: Client, message: Message):
         try:
             await client.send_message(
                 user_id,
-                f"<b>Your Feedback:</b> {feedback_text}\n\n"
+                f"<b>Your Feedback:</b> {feedback_text or 'No message found'}\n\n"
                 f"<b>Reply from Admin:</b>\n{admin_reply}",
                 parse_mode=enums.ParseMode.HTML
             )
