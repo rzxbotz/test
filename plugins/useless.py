@@ -19,6 +19,10 @@ async def useless(_,message: Message):
     if USER_REPLY_TEXT:
         await message.reply(USER_REPLY_TEXT)
 
+async def restart():
+    """Restart the bot process"""
+    os.execl(sys.executable, sys.executable, "-m", "bot")
+
 @Bot.on_message(filters.command("update") & filters.user(ADMINS))
 async def update_restart(app, message):
     try:
@@ -75,7 +79,4 @@ def get_size(size_in_bytes):
         size_in_bytes /= 1024
         i += 1
     return f"{size_in_bytes:.2f} {size_units[i]}"
-
-async def restart():
-    """Restart the bot process"""
-    os.execl(sys.executable, sys.executable, "-m", "bot")
+    
