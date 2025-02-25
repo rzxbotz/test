@@ -63,6 +63,16 @@ AUTO_DEL_SUCCESS_MSG = os.environ.get("AUTO_DEL_SUCCESS_MSG", "Your file has bee
 DISABLE_CHANNEL_BUTTON = os.environ.get("DISABLE_CHANNEL_BUTTON", None) == 'True'
 
 BOT_STATS_TEXT = "<b>BOT UPTIME</b>\n{uptime}"
+SERVER = """<blockquote>🤖 𝖡𝗈𝗍 𝖯𝖾𝗋𝖿𝗈𝗋𝗆𝖺𝗇𝖼𝖾</blockquote>
+𝖡𝗈𝗍 𝖯𝗂𝗇𝗀: {ping}
+<blockquote>📡 𝖲𝖾𝗋𝗏𝖾𝗋</blockquote>
+𝖳𝗈𝗍𝖺𝗅 𝖣𝗂𝗌𝗄: {total}
+𝖴𝗌𝖾𝖽 𝖣𝗂𝗌𝗄: {used} ({disk_usage}%)
+𝖥𝗋𝖾𝖾 𝖣𝗂𝗌𝗄: {free}
+𝖳𝗈𝗍𝖺𝗅 𝖱𝖺𝗆: {t_ram}  
+𝖴𝗌𝖾𝖽 𝖱𝖺𝗆: {u_ram} ({ram_usage}%)
+𝖥𝗋𝖾𝖾 𝖱𝖺𝗆: {f_ram}
+𝖢𝖯𝖴 𝖴𝗌𝖺𝗀𝖾: {cpu_usage}%"""
 USER_REPLY_TEXT = "Don't send me messages directly!!"
 
 ADMINS.append(OWNER_ID)
