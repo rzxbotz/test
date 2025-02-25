@@ -51,7 +51,7 @@ async def server_stats(b, m):
     sts = await m.reply_text("ᴩʟᴇᴀꜱᴇ ᴡᴀɪᴛ...")
     end_t = time.time()
     time_taken_s = (end_t - start_t) * 1000
-    stats = SERVER.format(  # Changed from script.SERVER to SERVER
+    stats = SERVER.format(
         ping = f"{time_taken_s:.3f} ᴍꜱ",
         total = get_size(total),
         used = get_size(used),
