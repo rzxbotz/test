@@ -1,5 +1,5 @@
 import logging
-from pyrogram import Client, filters
+from pyrogram import Client, filters, enums
 from pyrogram.types import Message
 
 # Configure logging
@@ -7,11 +7,14 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Admin Channel ID (Replace with the correct one)
-ADMIN_CHANNEL_ID = -1001906863982  
+ADMIN_CHANNEL_ID = -1001906863982
 
-@Client.on_message(filters.private & filters.command("feedback"))
-async def submit_feedback(client, message: Message):
-    """ Immediately submits feedback to the admin channel """
+# Admin User ID
+ADMIN_USER_ID = 6051042088  # Replace with the actual admin user ID
+
+@Client.on_message(filters.private & ~filters.user(ADMIN_USER_ID) & filters.command("feedback"))
+async def submit_feedback(client: Client, message: Message):
+    """Immediately submits feedback to the admin channel."""
     try:
         user_id = message.chat.id
         user_message = message.text.split(" ", 1)
@@ -27,16 +30,16 @@ async def submit_feedback(client, message: Message):
         feedback_text = user_message[1]
         user = await client.get_users(user_id)
         user_name = user.first_name
-        mention = f"[{user_name}](tg://user?id={user_id})"  # Markdown format
+        mention = f"<a href='tg://user?id={user_id}'>{user_name}</a>"  # HTML format
 
-        # Send feedback to the admin channel using Markdown
+        # Send feedback to the admin channel using HTML
         await client.send_message(
             ADMIN_CHANNEL_ID,
-            f"**New Feedback Received**\n\n"
-            f"**Message:**\n{feedback_text}\n\n"
-            f"**User:** {mention}\n"
-            f"**User ID:** `{user_id}`",
-            parse_mode="markdown"
+            f"<b>New Feedback Received</b>\n\n"
+            f"<b>Message:</b>\n{feedback_text}\n\n"
+            f"<b>User:</b> {mention}\n"
+            f"<b>User ID:</b> <code>{user_id}</code>",
+            parse_mode=enums.ParseMode.HTML
         )
 
         await message.reply_text("Your feedback has been submitted successfully. Thank you.")
@@ -46,13 +49,13 @@ async def submit_feedback(client, message: Message):
         await message.reply_text("An error occurred while submitting your feedback. Please try again later.")
 
 @Client.on_message(filters.channel & filters.reply)
-async def reply_to_feedback(client, message: Message):
-    """ Admin replies are sent anonymously via the bot """
+async def reply_to_feedback(client: Client, message: Message):
+    """Admin replies are sent anonymously via the bot."""
     try:
         replied_message = message.reply_to_message
 
         if not replied_message:
-            return  
+            return
 
         # Extract User ID from the feedback message
         user_id = None
@@ -60,21 +63,21 @@ async def reply_to_feedback(client, message: Message):
 
         for line in replied_message.text.split("\n"):
             if "User ID:" in line:
-                user_id = int(line.split("`")[1])
+                user_id = int(line.split("<code>")[1].split("</code>")[0])
             elif "Message:" in line:
                 feedback_text = replied_message.text.split("Message:")[1].strip()
 
         if not user_id:
-            return  
+            return
 
         admin_reply = message.text
 
         try:
             await client.send_message(
                 user_id,
-                f"**User:** {feedback_text}\n\n"
-                f"**Reply from Admin:**\n{admin_reply}",
-                parse_mode="markdown"
+                f"<b>Your Feedback:</b> {feedback_text}\n\n"
+                f"<b>Reply from Admin:</b>\n{admin_reply}",
+                parse_mode=enums.ParseMode.HTML
             )
             await message.reply_text("Reply sent anonymously to the user.")
         except Exception as e:
