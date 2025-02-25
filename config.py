@@ -8,7 +8,7 @@ from logging.handlers import RotatingFileHandler
 load_dotenv()
 
 #Bot token @Botfather
-TG_BOT_TOKEN = os.environ.get("TG_BOT_TOKEN", "6904989593:AAFN4CX2vxW_pOr8kjXOMSkTrnO18zVWvmc")
+TG_BOT_TOKEN = os.environ.get("TG_BOT_TOKEN", "7068672076:AAHhXQkj5f2lmPTRkwZS56D3yWj50nCfHq4")
 
 #Your API ID from my.telegram.org
 APP_ID = int(os.environ.get("APP_ID", "1747534"))
@@ -36,7 +36,7 @@ JOIN_REQUEST_ENABLE = os.environ.get("JOIN_REQUEST_ENABLED", None)
 TG_BOT_WORKERS = int(os.environ.get("TG_BOT_WORKERS", "4"))
 
 #start message
-START_PIC = os.environ.get("START_PIC","https://graph.org/file/91c3fd3ae19e2a2686088.jpg")
+START_PIC = os.environ.get("START_PIC","https://envs.sh/tg2.jpg")
 START_MSG = os.environ.get("START_MESSAGE", "Hello.")
 try:
     ADMINS=[]
