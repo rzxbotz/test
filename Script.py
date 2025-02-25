@@ -89,7 +89,13 @@ Study materials will be <b>added soon.</b>
 
 <b>Semester:</b> Sixth  
 
-<b><a href=https://t.me/ExamWalletBot?start=Z2V0LTI3MzYxMTk0MDQ4NjA2Ni0yNzk2MjUzODk3Mjc1MTg>[AUDITING AND CORPORATE GOVERNANCE]</a></b>
+<b><a href=https://t.me/ExamWalletBot?start=Z2V0LTI5OTY3MDIyMDUzMjM1OC0zMDc2ODgxNTI4NTQyOTQ>FINANCIAL DERIVATIVES</a></b>
+
+<b><a href=https://t.me/ExamWalletBot?start=Z2V0LTMxNDcwMzg0MzYzNTk4OC0zMjA3MTcyOTI4Nzc0NDA>AUDITING AND CORPORATE GOVERNANCE</a></b>
+
+<b><a href=https://t.me/ExamWalletBot?start=Z2V0LTMyNjczMDc0MjExODg5Mi0zMzU3NTA5MTU5ODEwNzA>FUNDAMENTALS OF INVESTMENT</a></b>
+
+<b><a href=https://t.me/ExamWalletBot?start=Z2V0LTM0MTc2NDM2NTIyMjUyMi0zNDg3ODAwNTYwMDQyMTY>INCOME TAX & GST</a></b>
 
 <i>Click on the subject name to view available resources.</i>
 
@@ -157,7 +163,13 @@ Previous year question papers will be <b>added soon.</b>
 
 <b>Semester:</b> Sixth  
 
-<b><a href=https://t.me/ExamWalletBot?start=Z2V0LTI3MzYxMTk0MDQ4NjA2Ni0yNzk2MjUzODk3Mjc1MTg>[AUDITING AND CORPORATE GOVERNANCE]</a></b>  
+<b><a href=https://t.me/ExamWalletBot?start=Z2V0LTMwODY5MDM5NDM5NDUzNi0zMTI2OTkzNjA1NTU1MDQ>FINANCIAL DERIVATIVES</a></b>
+
+<b><a href=https://t.me/ExamWalletBot?start=Z2V0LTMyMTcxOTUzNDQxNzY4Mi0zMjU3Mjg1MDA1Nzg2NTA>AUDITING AND CORPORATE GOVERNANCE</a></b>
+
+<b><a href=https://t.me/ExamWalletBot?start=Z2V0LTMzNjc1MzE1NzUyMTMxMi0zNDA3NjIxMjM2ODIyODA>FUNDAMENTALS OF INVESTMENT</a></b>
+
+<b><a href=https://t.me/ExamWalletBot?start=Z2V0LTM0OTc4MjI5NzU0NDQ1OC0zNTM3OTEyNjM3MDU0MjY>INCOME TAX & GST</a></b>
 
 <i>Click on the subject name to view available papers.</i>
 
