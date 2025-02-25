@@ -27,16 +27,16 @@ async def submit_feedback(client, message: Message):
         feedback_text = user_message[1]
         user = await client.get_users(user_id)
         user_name = user.first_name
-        mention = f'<a href="tg://user?id={user_id}">{user_name}</a>'
+        mention = f"[{user_name}](tg://user?id={user_id})"  # Markdown format
 
-        # Send feedback to the admin channel
+        # Send feedback to the admin channel using Markdown
         await client.send_message(
             ADMIN_CHANNEL_ID,
-            f"<b>New Feedback Received</b>\n\n"
-            f"<b>Message:</b>\n{feedback_text}\n\n"
-            f"<b>User:</b> {mention}\n"
-            f"<b>User ID:</b> {user_id}",
-            parse_mode="html"
+            f"**New Feedback Received**\n\n"
+            f"**Message:**\n{feedback_text}\n\n"
+            f"**User:** {mention}\n"
+            f"**User ID:** `{user_id}`",
+            parse_mode="markdown"
         )
 
         await message.reply_text("Your feedback has been submitted successfully. Thank you.")
@@ -72,9 +72,9 @@ async def reply_to_feedback(client, message: Message):
         try:
             await client.send_message(
                 user_id,
-                f"<blockquote>{feedback_text}</blockquote>\n\n"
-                f"<b>Reply from Admin:</b>\n{admin_reply}",
-                parse_mode="html"
+                f"**User:** {feedback_text}\n\n"
+                f"**Reply from Admin:**\n{admin_reply}",
+                parse_mode="markdown"
             )
             await message.reply_text("Reply sent anonymously to the user.")
         except Exception as e:
@@ -82,3 +82,4 @@ async def reply_to_feedback(client, message: Message):
             await message.reply_text("Failed to send reply. The user may have blocked the bot.")
     except Exception as e:
         logger.error(f"Error in reply_to_feedback: {e}")
+        
