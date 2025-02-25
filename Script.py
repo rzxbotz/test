@@ -1,95 +1,165 @@
 class script(object):
-    START_MSG = """<b>Here You Can Find Calicut University's Study Notes & Previous Year Question Papers Easily.
-    
-Select Your Course Using The Button Given Below:</b>"""
+    START_MSG = """<b>Welcome to the Calicut University Study Material Bot.</b>
 
-    COURSE = """<b>Select Your Course Using the Buttons Given Below</b>"""
+Here, you can easily access <b>study notes</b> and <b>previous year question papers</b> for your courses.  
 
-    BCOM = """<i>○ Selected Course: B.COM</i>"""
+<i>Select your course using the buttons below to get started.</i>"""
 
-    MATERIALS2019 = """<i>○ Selected Course: <b>B.COM</b>
-    
-○ Here, You can Access Study Notes & Previous Year Question Papers!  
+    COURSE = """<u><b>𝙀𝙭𝙖𝙢𝙒𝙖𝙡𝙡𝙚𝙩</b></u>
 
-Click the Button Below to Continue:</i>"""
+<b>Please choose your course from the options below.</b>
 
-    BCM2019SNSEMESTERS = """<i>○ Selected Course: B.COM
-    
-○ Now Select The Semester to Access the Study Materials!</i>"""
+<b><i>@ExamWalletBot</i></b>"""
 
-    BCMSNSEM1 = """<i>○ Selected Semester: First  
+    BCOM = """<u><b>𝙀𝙭𝙖𝙢𝙒𝙖𝙡𝙡𝙚𝙩</b></u>
 
-Files Will Be Added Soon...  
+<b>You have selected:</b> BCOM
 
-NB: Click on the Subject Name to Get Study Materials.</i>"""
+<b><i>@ExamWalletBot</i></b>"""
 
-    BCMSNSEM2 = """<i>○ Selected Semester: Second  
+    MATERIALS2019 = """<u><b>𝙀𝙭𝙖𝙢𝙒𝙖𝙡𝙡𝙚𝙩</b></u>
 
-Files Will Be Added Soon...  
+<b>Course Selected:</b> BCOM
 
-NB: Click on the Subject Name to Get Study Materials.</i>"""
+Here, you can find <b>study notes</b> and <b>previous year question papers</b> for your course.  
 
-    BCMSNSEM3 = """<i>○ Selected Semester: Third  
+Click the button below to continue.
 
-Files Will Be Added Soon...  
+<b><i>@ExamWalletBot</i></b>"""
 
-NB: Click on the Subject Name to Get Study Materials.</i>"""
+    BCM2019SNSEMESTERS = """<u><b>𝙀𝙭𝙖𝙢𝙒𝙖𝙡𝙡𝙚𝙩</b></u>
 
-    BCMSNSEM4 = """<i>○ Selected Semester: Fourth  
+<b>Course:</b> BCOM  
 
-Files Will Be Added Soon...  
+Now, choose your semester to access the available study materials.
 
-NB: Click on the Subject Name to Get Study Materials.</i>"""
+<b><i>@ExamWalletBot</i></b>"""
 
-    BCMSNSEM5 = """<i>○ Selected Semester: Fifth  
+    BCMSNSEM1 = """<u><b>𝙀𝙭𝙖𝙢𝙒𝙖𝙡𝙡𝙚𝙩</b></u>
 
-Files Will Be Added Soon...  
+<b>Semester:</b> First  
 
-NB: Click on the Subject Name to Get Study Materials.</i>"""
+Study materials will be <b>added soon.</b>  
 
-    BCMSNSEM6 = """<i>○ Selected Semester: Sixth  
+<i>Click on the subject name to view available resources.</i>
 
-Files Will Be Added Soon...  
+<b><i>@ExamWalletBot</i></b>"""
 
-NB: Click on the Subject Name to Get Study Materials.</i>"""
+    BCMSNSEM2 = """<u><b>𝙀𝙭𝙖𝙢𝙒𝙖𝙡𝙡𝙚𝙩</b></u>
 
-    BCM2019PYQSEMESTERS = """<i>○ Selected Course: B.COM  
-    
-○ Now Select The Semester to Access the Previous Year Question Papers!</i>"""
+<b>Semester:</b> Second  
 
-    BCMPYQSEM1 = """<i>○ Selected Semester: First  
+Study materials will be <b>added soon.</b>  
 
-Files Will Be Added Soon...  
+<i>Click on the subject name to view available resources.</i>
 
-NB: Click on the Subject Name to Get Study Materials.</i>"""
+<b><i>@ExamWalletBot</i></b>"""
 
-    BCMPYQSEM2 = """<i>○ Selected Semester: Second  
+    BCMSNSEM3 = """<u><b>𝙀𝙭𝙖𝙢𝙒𝙖𝙡𝙡𝙚𝙩</b></u>
 
-Files Will Be Added Soon...  
+<b>Semester:</b> Third  
 
-NB: Click on the Subject Name to Get Study Materials.</i>"""
+Study materials will be <b>added soon.</b>  
 
-    BCMPYQSEM3 = """<i>○ Selected Semester: Third  
+<i>Click on the subject name to view available resources.</i>
 
-Files Will Be Added Soon...  
+<b><i>@ExamWalletBot</i></b>"""
 
-NB: Click on the Subject Name to Get Study Materials.</i>"""
+    BCMSNSEM4 = """<u><b>𝙀𝙭𝙖𝙢𝙒𝙖𝙡𝙡𝙚𝙩</b></u>
 
-    BCMPYQSEM4 = """<i>○ Selected Semester: Fourth  
+<b>Semester:</b> Fourth  
 
-Files Will Be Added Soon...  
+Study materials will be <b>added soon.</b>  
 
-NB: Click on the Subject Name to Get Study Materials.</i>"""
+<i>Click on the subject name to view available resources.</i>
 
-    BCMPYQSEM5 = """<i>○ Selected Semester: Fifth  
+<b><i>@ExamWalletBot</i></b>"""
 
-Files Will Be Added Soon...  
+    BCMSNSEM5 = """<u><b>𝙀𝙭𝙖𝙢𝙒𝙖𝙡𝙡𝙚𝙩</b></u>
 
-NB: Click on the Subject Name to Get Study Materials.</i>"""
+<b>Semester:</b> Fifth  
 
-    BCMPYQSEM6 = """<i>○ Selected Semester: Sixth  
+Study materials will be <b>added soon.</b>  
 
-Files Will Be Added Soon...  
+<i>Click on the subject name to view available resources.</i>
 
-NB: Click on the Subject Name to Get Study Materials.</i>"""
+<b><i>@ExamWalletBot</i></b>"""
+
+    BCMSNSEM6 = """<u><b>𝙀𝙭𝙖𝙢𝙒𝙖𝙡𝙡𝙚𝙩</b></u>
+
+<b>Semester:</b> Sixth  
+
+Study materials will be <b>added soon.</b>  
+
+<i>Click on the subject name to view available resources.</i>
+
+<b><i>@ExamWalletBot</i></b>"""
+
+    BCM2019PYQSEMESTERS = """<u><b>𝙀𝙭𝙖𝙢𝙒𝙖𝙡𝙡𝙚𝙩</b></u>
+
+<b>Course Selected:</b> BCOM  
+
+Now, choose your semester to access <b>previous year question papers.</b>
+
+<b><i>@ExamWalletBot</i></b>"""
+
+    BCMPYQSEM1 = """<u><b>𝙀𝙭𝙖𝙢𝙒𝙖𝙡𝙡𝙚𝙩</b></u>
+
+<b>Semester:</b> First  
+
+Previous year question papers will be <b>added soon.</b>  
+
+<i>Click on the subject name to view available papers.</i>
+
+<b><i>@ExamWalletBot</i></b>"""
+
+    BCMPYQSEM2 = """<u><b>𝙀𝙭𝙖𝙢𝙒𝙖𝙡𝙡𝙚𝙩</b></u>
+
+<b>Semester:</b> Second  
+
+Previous year question papers will be <b>added soon.</b>  
+
+<i>Click on the subject name to view available papers.</i>
+
+<b><i>@ExamWalletBot</i></b>"""
+
+    BCMPYQSEM3 = """<u><b>𝙀𝙭𝙖𝙢𝙒𝙖𝙡𝙡𝙚𝙩</b></u>
+
+<b>Semester:</b> Third  
+
+Previous year question papers will be <b>added soon.</b>  
+
+<i>Click on the subject name to view available papers.</i>
+
+<b><i>@ExamWalletBot</i></b>"""
+
+    BCMPYQSEM4 = """<u><b>𝙀𝙭𝙖𝙢𝙒𝙖𝙡𝙡𝙚𝙩</b></u>
+
+<b>Semester:</b> Fourth  
+
+Previous year question papers will be <b>added soon.</b>  
+
+<i>Click on the subject name to view available papers.</i>
+
+<b><i>@ExamWalletBot</i></b>"""
+
+    BCMPYQSEM5 = """<u><b>𝙀𝙭𝙖𝙢𝙒𝙖𝙡𝙡𝙚𝙩</b></u>
+
+<b>Semester:</b> Fifth  
+
+Previous year question papers will be <b>added soon.</b>  
+
+<i>Click on the subject name to view available papers.</i>
+
+<b><i>@ExamWalletBot</i></b>"""
+
+    BCMPYQSEM6 = """<u><b>𝙀𝙭𝙖𝙢𝙒𝙖𝙡𝙡𝙚𝙩</b></u>
+
+<b>Semester:</b> Sixth  
+
+Previous year question papers will be <b>added soon.</b>  
+
+<i>Click on the subject name to view available papers.</i>
+
+<b><i>@ExamWalletBot</i></b>"""
     
