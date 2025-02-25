@@ -1,10 +1,10 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 
-# Admin Channel ID where feedback is sent
-ADMIN_CHANNEL_ID = -1001906863982  # Replace with your actual channel ID
+# ✅ Corrected Admin Channel ID (Replace if needed)
+ADMIN_CHANNEL_ID = -1001906863982  # Make sure this is correct
 
-# Dictionary to store user feedback before confirmation
+# Dictionary to store user feedback temporarily
 pending_feedback = {}
 
 @Client.on_message(filters.private & filters.command("feedback"))
@@ -35,11 +35,11 @@ async def submit_feedback(client, query):
     """ Handles feedback submission after user confirmation """
     user_id = int(query.data.split("|")[1])
 
-    # Retrieve stored feedback
-    feedback_text = pending_feedback.get(user_id)
-    if not feedback_text:
+    if user_id not in pending_feedback:
         await query.answer("❌ No feedback found.")
         return
+
+    feedback_text = pending_feedback.pop(user_id)
 
     user = await client.get_users(user_id)
     user_name = user.first_name
@@ -49,9 +49,6 @@ async def submit_feedback(client, query):
         f"📩 **New Feedback Received**\n\n👤 **User:** [{user_name}](tg://user?id={user_id})\n🆔 **User ID:** `{user_id}`\n\n💬 **Message:**\n{feedback_text}\n\n🔹 *Reply to this message to respond anonymously.*"
     )
 
-    # Remove stored feedback after submission
-    pending_feedback.pop(user_id, None)
-
     await query.message.edit_text("✅ Your feedback has been submitted successfully! Thank you.")
 
 @Client.on_callback_query(filters.regex(r"cancel_feedback\|(\d+)"))
@@ -59,8 +56,8 @@ async def cancel_feedback(client, query):
     """ Handles feedback cancellation """
     user_id = int(query.data.split("|")[1])
 
-    # Remove stored feedback if canceled
-    pending_feedback.pop(user_id, None)
+    if user_id in pending_feedback:
+        pending_feedback.pop(user_id)
 
     await query.message.edit_text("❌ Feedback submission canceled.")
 
@@ -73,11 +70,13 @@ async def reply_to_feedback(client, message: Message):
         return  # Ignore if not a reply to a feedback message
 
     # Extract User ID from the feedback message
+    user_id = None
     for line in replied_message.text.split("\n"):
         if line.startswith("🆔 **User ID:**"):
             user_id = int(line.split("`")[1])
             break
-    else:
+
+    if not user_id:
         return  # Ignore if no user ID is found
 
     admin_reply = message.text
