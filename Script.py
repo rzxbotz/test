@@ -4,6 +4,43 @@ class script(object):
 Here, you can easily access <b>study notes</b> and <b>previous year question papers</b> for your courses.  
 
 <i>Select your course using the buttons below to get started.</i>"""
+    
+    ABOUT_TXT= """<u><b>𝙀𝙭𝙖𝙢𝙒𝙖𝙡𝙡𝙚𝙩</b></u>
+
+<b>Creator:</b> <a href="https://t.me/Source_Codez/3">This Person</a>  
+<b>Language:</b> Python 3  
+<b>Library:</b> Pyrogram  
+<b>Server:</b> <a href="https://t.me/Source_Codez/3">VPS</a>  
+<b>Database:</b> <a href="https://www.mongodb.com/">MongoDB Free Tier</a>  
+<b>Build Status:</b> v3.1 [Stable]  
+
+<b><i>@ExamWalletBot</i></b>"""
+    
+    ABOUT = """<u><b>𝙀𝙭𝙖𝙢𝙒𝙖𝙡𝙡𝙚𝙩</b></u>
+
+<i>Exam Wallet - Your Ultimate Study Companion
+
+Exam Wallet is a user-friendly Telegram bot designed to help Calicut University students easily access study materials.
+
+We provide previous year question papers and study notes, ensuring that students can find everything they need in one place without any hassle. Our goal is to simplify learning by offering well-organized materials that are easy to navigate.
+
+Why choose Exam Wallet? It is simple to use, free from ads and distractions, and focuses entirely on providing quality study resources. With a clean and efficient interface, students can quickly find and access the materials they need.
+
+Start using Exam Wallet today and make studying smarter, not harder.
+
+Happy Learning!</i>
+
+<b><i>@ExamWalletBot</i></b>"""
+    
+    CREDIT = """<u><b>𝙀𝙭𝙖𝙢𝙒𝙖𝙡𝙡𝙚𝙩</b></u>
+
+<i>The study materials provided in this bot are sourced from various contributors, and academic resources. We appreciate their efforts in making learning accessible to all.</i>
+
+<b><a href="https://t.me/JurazCommerce">Juraz Commerce</a>
+
+<a href="https://t.me/educational_corner">Educational Corner</a></b>
+
+<b><i>@ExamWalletBot</i></b>"""
 
     COURSE = """<u><b>𝙀𝙭𝙖𝙢𝙒𝙖𝙡𝙡𝙚𝙩</b></u>
 
