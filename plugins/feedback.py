@@ -2,11 +2,11 @@ import logging
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
-# ✅ Configure logging
+# Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# ✅ Admin Channel ID (Replace with the correct one)
+# Admin Channel ID (Replace with the correct one)
 ADMIN_CHANNEL_ID = -1001906863982  
 
 @Client.on_message(filters.private & filters.command("feedback"))
@@ -17,7 +17,11 @@ async def submit_feedback(client, message: Message):
         user_message = message.text.split(" ", 1)
 
         if len(user_message) < 2:
-            await message.reply_text("❌ Please provide feedback. Example: `/feedback This bot is amazing!`")
+            await message.reply_text(
+                "To submit feedback, please use the correct format:\n\n"
+                "Example: /feedback This bot is very useful.\n\n"
+                "Your feedback helps us improve. Thank you."
+            )
             return
 
         feedback_text = user_message[1]
@@ -26,23 +30,20 @@ async def submit_feedback(client, message: Message):
         mention = f'<a href="tg://user?id={user_id}">{user_name}</a>'
 
         # Send feedback to the admin channel
-        sent_message = await client.send_message(
+        await client.send_message(
             ADMIN_CHANNEL_ID,
-            f"<b>📩 New Feedback Received</b>\n\n"
-            f"<b>💬 Message:</b>\n{feedback_text}\n\n"
-            f"<b>👤 User:</b> {mention}\n"
-            f"<b>🆔 User ID:</b> `{user_id}`",
+            f"<b>New Feedback Received</b>\n\n"
+            f"<b>Message:</b>\n{feedback_text}\n\n"
+            f"<b>User:</b> {mention}\n"
+            f"<b>User ID:</b> {user_id}",
             parse_mode="html"
         )
 
-        # Store the original feedback message ID for reference
-        sent_message.reply_markup = None  # Remove reply markup to avoid confusion
-
-        await message.reply_text("✅ Your feedback has been submitted successfully! Thank you.")
+        await message.reply_text("Your feedback has been submitted successfully. Thank you.")
     
     except Exception as e:
         logger.error(f"Error in submit_feedback: {e}")
-        await message.reply_text("❌ An error occurred while submitting your feedback. Please try again later.")
+        await message.reply_text("An error occurred while submitting your feedback. Please try again later.")
 
 @Client.on_message(filters.channel & filters.reply)
 async def reply_to_feedback(client, message: Message):
@@ -58,10 +59,10 @@ async def reply_to_feedback(client, message: Message):
         feedback_text = None
 
         for line in replied_message.text.split("\n"):
-            if "🆔 User ID:" in line:
+            if "User ID:" in line:
                 user_id = int(line.split("`")[1])
-            elif "💬 Message:" in line:
-                feedback_text = replied_message.text.split("💬 Message:")[1].strip()
+            elif "Message:" in line:
+                feedback_text = replied_message.text.split("Message:")[1].strip()
 
         if not user_id:
             return  
@@ -71,14 +72,13 @@ async def reply_to_feedback(client, message: Message):
         try:
             await client.send_message(
                 user_id,
-                f"<blockquote>You: {feedback_text}</blockquote>\n\n"
-                f"<b>📩 Reply from Admin:</b>\n{admin_reply}",
+                f"<blockquote>{feedback_text}</blockquote>\n\n"
+                f"<b>Reply from Admin:</b>\n{admin_reply}",
                 parse_mode="html"
             )
-            await message.reply_text("✅ Reply sent anonymously to the user.")
+            await message.reply_text("Reply sent anonymously to the user.")
         except Exception as e:
             logger.error(f"Error sending reply to user {user_id}: {e}")
-            await message.reply_text("❌ Failed to send reply. The user may have blocked the bot.")
+            await message.reply_text("Failed to send reply. The user may have blocked the bot.")
     except Exception as e:
         logger.error(f"Error in reply_to_feedback: {e}")
-        
