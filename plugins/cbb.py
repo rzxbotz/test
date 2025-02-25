@@ -10,13 +10,21 @@ from Script import script
 async def cb_handler(client: Bot, query: CallbackQuery):
     data = query.data
 
+    async def safe_edit_media(new_caption, reply_markup):
+        """Check if the new caption is different before editing media"""
+        if query.message.caption != new_caption:
+            try:
+                await query.message.edit_media(
+                    InputMediaPhoto(START_PIC, caption=new_caption),
+                    reply_markup=reply_markup
+                )
+            except Exception as e:
+                print(f"Error editing media: {e}")
+
     if data == "start":
-        await query.message.edit_media(
-            InputMediaPhoto(
-                START_PIC, 
-                caption=script.COURSE.format(query.from_user.mention)
-            ),
-            reply_markup=InlineKeyboardMarkup(
+        await safe_edit_media(
+            script.COURSE.format(query.from_user.mention),
+            InlineKeyboardMarkup(
                 [
                     [
                         InlineKeyboardButton("SELECT YOUR COURSE", callback_data="course")
@@ -30,12 +38,9 @@ async def cb_handler(client: Bot, query: CallbackQuery):
         )
 
     elif data == "course":
-        await query.message.edit_media(
-            InputMediaPhoto(
-                START_PIC, 
-                caption=script.BCOM.format(query.from_user.mention)
-            ),
-            reply_markup=InlineKeyboardMarkup(
+        await safe_edit_media(
+            script.BCOM.format(query.from_user.mention),
+            InlineKeyboardMarkup(
                 [
                     [
                         InlineKeyboardButton("BCOM", callback_data="bcom"),
@@ -47,12 +52,9 @@ async def cb_handler(client: Bot, query: CallbackQuery):
         )
 
     elif data == "bcom":
-        await query.message.edit_media(
-            InputMediaPhoto(
-                START_PIC, 
-                caption=script.BCOM.format(query.from_user.mention)
-            ),
-            reply_markup=InlineKeyboardMarkup(
+        await safe_edit_media(
+            script.BCOM.format(query.from_user.mention),
+            InlineKeyboardMarkup(
                 [
                     [
                         InlineKeyboardButton("Admission Onwards 2019", callback_data="bcm2019")
@@ -66,12 +68,9 @@ async def cb_handler(client: Bot, query: CallbackQuery):
         )
 
     elif data == "bcm2019":
-        await query.message.edit_media(
-            InputMediaPhoto(
-                START_PIC, 
-                caption=script.MATERIALS2019.format(query.from_user.mention)
-            ),
-            reply_markup=InlineKeyboardMarkup(
+        await safe_edit_media(
+            script.MATERIALS2019.format(query.from_user.mention),
+            InlineKeyboardMarkup(
                 [
                     [InlineKeyboardButton("Study Notes", callback_data="studynotes2019")],
                     [InlineKeyboardButton("Question Papers", callback_data="pyq2019")],
@@ -81,12 +80,9 @@ async def cb_handler(client: Bot, query: CallbackQuery):
         )
 
     elif data == "studynotes2019":
-        await query.message.edit_media(
-            InputMediaPhoto(
-                START_PIC, 
-                caption=script.BCM2019SNSEMESTERS.format(query.from_user.mention)
-            ),
-            reply_markup=InlineKeyboardMarkup(
+        await safe_edit_media(
+            script.BCM2019SNSEMESTERS.format(query.from_user.mention),
+            InlineKeyboardMarkup(
                 [
                     [
                         InlineKeyboardButton("1️⃣ SEMESTER", callback_data="bcmsnsem1"),
@@ -107,23 +103,17 @@ async def cb_handler(client: Bot, query: CallbackQuery):
 
     elif data.startswith("bcmsnsem"):
         semester = data[-1]  # Extract semester number
-        await query.message.edit_media(
-            InputMediaPhoto(
-                START_PIC, 
-                caption=getattr(script, f"BCMSNSEM{semester}").format(query.from_user.mention)
-            ),
-            reply_markup=InlineKeyboardMarkup(
+        await safe_edit_media(
+            getattr(script, f"BCMSNSEM{semester}").format(query.from_user.mention),
+            InlineKeyboardMarkup(
                 [[InlineKeyboardButton("Back", callback_data="studynotes2019")]]
             )
         )
 
     elif data == "pyq2019":
-        await query.message.edit_media(
-            InputMediaPhoto(
-                START_PIC, 
-                caption=script.BCM2019PYQSEMESTERS.format(query.from_user.mention)
-            ),
-            reply_markup=InlineKeyboardMarkup(
+        await safe_edit_media(
+            script.BCM2019PYQSEMESTERS.format(query.from_user.mention),
+            InlineKeyboardMarkup(
                 [
                     [
                         InlineKeyboardButton("1️⃣ SEMESTER", callback_data="bcmpyqsem1"),
@@ -144,12 +134,9 @@ async def cb_handler(client: Bot, query: CallbackQuery):
 
     elif data.startswith("bcmpyqsem"):
         semester = data[-1]  # Extract semester number
-        await query.message.edit_media(
-            InputMediaPhoto(
-                START_PIC, 
-                caption=getattr(script, f"BCMPYQSEM{semester}").format(query.from_user.mention)
-            ),
-            reply_markup=InlineKeyboardMarkup(
+        await safe_edit_media(
+            getattr(script, f"BCMPYQSEM{semester}").format(query.from_user.mention),
+            InlineKeyboardMarkup(
                 [[InlineKeyboardButton("Back", callback_data="pyq2019")]]
             )
         )
@@ -166,4 +153,4 @@ async def cb_handler(client: Bot, query: CallbackQuery):
             await query.message.reply_to_message.delete()
         except:
             pass
-            
+        
