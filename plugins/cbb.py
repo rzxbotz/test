@@ -2,7 +2,7 @@
 
 from pyrogram import __version__
 from bot import Bot
-from config import OWNER_ID
+from config import OWNER_ID, START_PIC
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 from Script import script
 
@@ -10,15 +10,30 @@ from Script import script
 async def cb_handler(client: Bot, query: CallbackQuery):
     data = query.data
 
-    if data == "course":
-        await query.message.edit_text(
-            text=script.COURSE.format(query.from_user.mention),
+    if data == "start":
+        await query.message.edit_media(
+            media=InputMediaPhoto(START_PIC, caption=script.COURSE.format(query.from_user.mention),
+            disable_web_page_preview=True,
+            reply_markup=InlineKeyboardMarkup(
+                [
+                    [
+                        InlineKeyboardButton("SELECT YOUR COURSE", callback_data="course")  # Fixed duplicate "BCOM"
+                    ],
+                    [InlineKeyboardButton("Back", callback_data="start"),
+                    InlineKeyboardButton("UPDATES", url="https://t.me/rzxbots")]
+                ]
+            )
+        )
+
+    elif data == "course":
+        await query.message.edit_media(
+            media=InputMediaPhoto(START_PIC, caption=script.BCOM.format(query.from_user.mention),
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
                         InlineKeyboardButton("BCOM", callback_data="bcom"),
-                        InlineKeyboardButton("BBA", callback_data="soon")  # Fixed duplicate "BCOM"
+                        InlineKeyboardButton("BBA", callback_data="soon")
                     ],
                     [InlineKeyboardButton("Back", callback_data="start")]
                 ]
@@ -26,8 +41,8 @@ async def cb_handler(client: Bot, query: CallbackQuery):
         )
 
     elif data == "bcom":
-        await query.message.edit_text(
-            text=script.BCOM.format(query.from_user.mention),
+        await query.message.edit_media(
+            media=InputMediaPhoto(START_PIC, caption=script.BCOM.format(query.from_user.mention),
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
                 [
@@ -41,8 +56,8 @@ async def cb_handler(client: Bot, query: CallbackQuery):
         )
 
     elif data == "bcm2019":
-        await query.message.edit_text(
-            text=script.MATERIALS2019.format(query.from_user.mention),
+        await query.message.edit_media(
+            media=InputMediaPhoto(START_PIC, caption=script.MATERIALS2019.format(query.from_user.mention),
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
                 [
@@ -54,8 +69,8 @@ async def cb_handler(client: Bot, query: CallbackQuery):
         )
 
     elif data == "studynotes2019":
-        await query.message.edit_text(
-            text=script.BCM2019SNSEMESTERS.format(query.from_user.mention),
+        await query.message.edit_media(
+            media=InputMediaPhoto(START_PIC, caption=script.BCM2019SNSEMESTERS.format(query.from_user.mention),
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
                 [
@@ -78,8 +93,8 @@ async def cb_handler(client: Bot, query: CallbackQuery):
 
     elif data.startswith("bcmsnsem"):
         semester = data[-1]  # Extract semester number
-        await query.message.edit_text(
-            text=getattr(script, f"BCMSNSEM{semester}").format(query.from_user.mention),
+        await query.message.edit_media(
+            media=InputMediaPhoto(START_PIC, caption=getattr(script, f"BCMSNSEM{semester}").format(query.from_user.mention),
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
                 [[InlineKeyboardButton("Back", callback_data="studynotes2019")]]
@@ -87,8 +102,8 @@ async def cb_handler(client: Bot, query: CallbackQuery):
         )
 
     elif data == "pyq2019":
-        await query.message.edit_text(
-            text=script.BCM2019PYQSEMESTERS.format(query.from_user.mention),
+        await query.message.edit_media(
+            media=InputMediaPhoto(START_PIC, caption=script.BCM2019PYQSEMESTERS.format(query.from_user.mention),
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
                 [
@@ -111,8 +126,8 @@ async def cb_handler(client: Bot, query: CallbackQuery):
 
     elif data.startswith("bcmpyqsem"):
         semester = data[-1]  # Extract semester number
-        await query.message.edit_text(
-            text=getattr(script, f"BCMPYQSEM{semester}").format(query.from_user.mention),
+        await query.message.edit_media(
+            media=InputMediaPhoto(START_PIC, caption=getattr(script, f"BCMPYQSEM{semester}").format(query.from_user.mention),
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
                 [[InlineKeyboardButton("Back", callback_data="pyq2019")]]
