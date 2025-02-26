@@ -1,9 +1,10 @@
 from pyrogram import Client, filters
+from bot import Bot
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from Script import script
 from config import START_PIC
 
-@Client.on_message(filters.command("about"))
+@Bot.on_message(filters.command("about"))
 async def about(client, message):
     buttons = [
         [InlineKeyboardButton("Learn More About Us", callback_data="abouts")],
