@@ -14,13 +14,8 @@ async def stats(bot: Bot, message: Message):
     time = get_readable_time(delta.seconds)
     await message.reply(BOT_STATS_TEXT.format(uptime=time))
 
-@Bot.on_message(filters.private & filters.incoming)
-async def useless(_,message: Message):
-    if USER_REPLY_TEXT:
-        await message.reply(USER_REPLY_TEXT)
-
 @Bot.on_message(filters.command("update") & filters.user(ADMINS))
-async def update_restart(app, message):
+async def update_restart(bot, message):
     try:
         out = subprocess.check_output(["git", "pull"]).decode("UTF-8")
         if "Already up to date." in str(out):
@@ -28,30 +23,32 @@ async def update_restart(app, message):
 
         subprocess.check_output(["pip", "install", "-r", "requirements.txt"])
 
-        await message.reply_text(f"```{out}```")
+        m = await message.reply_text(f"```{out}```")
+        await m.edit("**Updated with default branch, restarting now...**")
+        # Don't await restart() - it doesn't return
+        restart()
     except Exception as e:
         return await message.reply_text(str(e))
-    m = await message.reply_text("**Updated with default branch, restarting now...**")
-    await restart()
 
 @Bot.on_message(filters.command("restart") & filters.user(ADMINS))
-async def restart_command(app, message):
+async def restart_command(bot, message):
     """Handle the restart command"""
     try:
         await message.reply_text("Restarting the bot...")
-        await restart()
+        # Don't await restart() - it doesn't return
+        restart()
     except Exception as e:
         await message.reply_text(f"Error during restart: {e}")
 
 @Bot.on_message(filters.command("server") & filters.user(ADMINS))
-async def server_stats(b, m):
+async def server_stats(bot, message):
     total, used, free = shutil.disk_usage(".")
     ram = psutil.virtual_memory()
     start_t = time.time()
-    sts = await m.reply_text("ᴩʟᴇᴀꜱᴇ ᴡᴀɪᴛ...")
+    sts = await message.reply_text("ᴩʟᴇᴀꜱᴇ ᴡᴀɪᴛ...")
     end_t = time.time()
     time_taken_s = (end_t - start_t) * 1000
-    stats = SERVER.format(  # Changed from script.SERVER to SERVER
+    stats = SERVER.format(
         ping = f"{time_taken_s:.3f} ᴍꜱ",
         total = get_size(total),
         used = get_size(used),
@@ -76,6 +73,12 @@ def get_size(size_in_bytes):
         i += 1
     return f"{size_in_bytes:.2f} {size_units[i]}"
 
-async def restart():
+def restart():
     """Restart the bot process"""
+    # This function doesn't return - it replaces the current process
     os.execl(sys.executable, sys.executable, "-m", "bot")
+
+@Bot.on_message(filters.private & filters.incoming)
+async def useless(_,message: Message):
+    if USER_REPLY_TEXT:
+        await message.reply(USER_REPLY_TEXT)
