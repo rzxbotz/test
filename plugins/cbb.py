@@ -30,8 +30,8 @@ async def cb_handler(client: Bot, query: CallbackQuery):
                         InlineKeyboardButton("SELECT YOUR COURSE", callback_data="course")
                     ],
                     [
-                        InlineKeyboardButton("UPDATES", url="https://t.me/rzxbots"),
-                        InlineKeyboardButton("SUPPORT", url="https://t.me/rzxchat")
+                        InlineKeyboardButton("UPDATES", url="https://t.me/ExamWallet"),
+                        InlineKeyboardButton("SUPPORT", url="https://t.me/Exam_Wallet")
                     ]
                 ]
             )
