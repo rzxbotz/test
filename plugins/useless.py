@@ -17,43 +17,45 @@ async def stats(bot: Bot, message: Message):
 @Bot.on_message(filters.command("update") & filters.user(ADMINS))
 async def update_restart(bot, message):
     try:
-        # First check git status to see if there are local changes
-        status = subprocess.check_output(["git", "status", "--porcelain"]).decode("UTF-8").strip()
-        if status:
-            await message.reply_text("Local changes detected. Please commit or stash them before updating.")
-            return
-            
-        # Try to pull, with better error handling
-        process = subprocess.Popen(
-            ["git", "pull"], 
+        # First, check if we're on a branch
+        branch_check = subprocess.run(
+            ["git", "symbolic-ref", "--short", "HEAD"], 
             stdout=subprocess.PIPE, 
             stderr=subprocess.PIPE
         )
-        stdout, stderr = process.communicate()
         
-        # Check return code
-        if process.returncode != 0:
-            error_msg = stderr.decode("UTF-8")
-            if "Permission denied" in error_msg:
-                return await message.reply_text("Permission denied. Check your Git credentials or repository permissions.")
-            elif "could not resolve host" in error_msg.lower():
-                return await message.reply_text("Network error. Could not connect to the remote repository.")
-            elif "conflict" in error_msg.lower():
-                return await message.reply_text("Merge conflict detected. Please resolve conflicts manually.")
-            else:
-                return await message.reply_text(f"Git pull failed with error:\n```{error_msg}```")
+        # If not on a branch, checkout main
+        if branch_check.returncode != 0:
+            await message.reply_text("Not currently on a branch. Checking out main branch...")
+            subprocess.check_call(["git", "checkout", "main"])
         
-        # Success case
-        output = stdout.decode("UTF-8")
-        if "Already up to date." in output:
-            return await message.reply_text("It's already up-to-date!")
+        # Now fetch changes
+        await message.reply_text("Fetching latest changes...")
+        subprocess.check_call(["git", "fetch", "origin", "main"])
+        
+        # Check if we're behind remote
+        status = subprocess.check_output(
+            ["git", "rev-list", "--count", "HEAD..origin/main"]
+        ).decode("UTF-8").strip()
+        
+        if status == "0":
+            return await message.reply_text("Already up-to-date!")
+        
+        # If we have updates, perform the merge
+        await message.reply_text(f"Found {status} new updates. Updating...")
+        merge_output = subprocess.check_output(
+            ["git", "merge", "origin/main"]
+        ).decode("UTF-8")
         
         # Install requirements
-        subprocess.check_output(["pip", "install", "-r", "requirements.txt"])
+        await message.reply_text("Installing requirements...")
+        subprocess.check_call(["pip", "install", "-r", "requirements.txt"])
         
-        m = await message.reply_text(f"```{output}```")
-        await m.edit("**Updated with default branch, restarting now...**")
-        # Don't await restart() - it doesn't return
+        # Success message
+        m = await message.reply_text(f"```{merge_output}```")
+        await m.edit("**Updated with main branch, restarting now...**")
+        
+        # Restart
         restart()
     except Exception as e:
         return await message.reply_text(f"Update failed: {str(e)}")
