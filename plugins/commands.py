@@ -20,13 +20,3 @@ async def about(client, message):
         reply_markup=reply_markup
     )
 
-@Bot.on_callback_query(filters.regex("close_data"))
-async def close_callback(client, callback_query):
-    try:
-        # Delete the message with the button
-        await callback_query.message.delete()
-        # Answer the callback query to stop the loading animation
-        await callback_query.answer("Closed!")
-    except Exception as e:
-        print(f"Error in close callback: {e}")
-        await callback_query.answer("Something went wrong!", show_alert=True)

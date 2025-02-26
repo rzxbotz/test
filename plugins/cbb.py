@@ -61,7 +61,7 @@ async def cb_handler(client: Bot, query: CallbackQuery):
                     ],[
                         InlineKeyboardButton("Credit", callback_data="credit")
                     ],
-                    [InlineKeyboardButton("Close", callback_data="close_data")]
+                    [InlineKeyboardButton("Close", callback_data="close")]
                 ]
             )
         )
