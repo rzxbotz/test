@@ -19,6 +19,7 @@ COMMANDS = [
     'about',
     'server',
     'restart',
+    'update',
     # Add more commands as needed, separated by commas
 ]
 
