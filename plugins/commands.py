@@ -9,7 +9,7 @@ async def about(client, message):
     buttons = [
         [InlineKeyboardButton("Learn More About Us", callback_data="abouts")],
         [InlineKeyboardButton("Credits", callback_data="credit")],
-        [InlineKeyboardButton("Close", callback_data="close_data")]
+        [InlineKeyboardButton("Close", callback_data="close")]
     ]
     
     reply_markup = InlineKeyboardMarkup(buttons)
